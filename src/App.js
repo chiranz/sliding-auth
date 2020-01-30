@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import RegisterForm from "./components/register/RegisterForm";
+import LoginForm from "./components/login/LoginForm";
+import RegisterOverlay from "./components/register/RegisterOverlay";
+import LoginOverlay from "./components/login/LoginOverlay";
 
 function App() {
+  const [showLogin, setShowLogin] = useState(true);
+  const handleClick = () => {
+    setShowLogin(!showLogin);
+  };
+  const onRegisterSubmit = () => {
+    console.log("Register Submit");
+    return;
+  };
+  const onLoginSubmit = () => {
+    console.log("Login Submit");
+    return;
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className={`container ${!showLogin ? "register-active" : ""}`}
+      id="container"
+    >
+      <RegisterForm handleSubmit={onRegisterSubmit} />
+      <LoginForm handleSubmit={onLoginSubmit} />
+      <div className="overlay-container">
+        <div className="overlay">
+          <RegisterOverlay onClick={handleClick} />
+          <LoginOverlay onClick={handleClick} />
+        </div>
+      </div>
     </div>
   );
 }
